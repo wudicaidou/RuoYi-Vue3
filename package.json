@@ -1,7 +1,7 @@
 {
   "name": "ruoyi",
   "version": "3.8.1",
-  "description": "标信大数据工具系统",
+  "description": "标信大数据工具平台",
   "author": "若依",
   "license": "MIT",
   "scripts": {

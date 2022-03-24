@@ -24,7 +24,7 @@ defineProps({
   }
 })
 
-const title = ref('标信大数据工具系统');
+const title = ref('标信大数据工具平台');
 const store = useStore();
 const sideTheme = computed(() => store.state.settings.sideTheme);
 </script>

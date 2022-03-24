@@ -1,7 +1,7 @@
 <template>
   <div class="register">
     <el-form ref="registerRef" :model="registerForm" :rules="registerRules" class="register-form">
-      <h3 class="title">标信大数据工具系统</h3>
+      <h3 class="title">标信大数据工具平台</h3>
       <el-form-item prop="username">
         <el-input 
           v-model="registerForm.username" 

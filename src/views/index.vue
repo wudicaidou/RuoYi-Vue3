@@ -3,7 +3,7 @@
     <el-row :gutter="20">
       <el-col :sm="24" :lg="24">
         <blockquote class="text-warning" style="font-size: 14px">
-          欢迎使用标信大数据工具系统
+          欢迎使用标信大数据工具平台
         </blockquote>
 
         <hr />
