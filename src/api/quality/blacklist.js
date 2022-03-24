@@ -42,3 +42,13 @@ export function delBlacklist(id) {
     method: 'delete'
   })
 }
+
+
+// 排除测试数据
+export function excludeBlacklist() {
+  return request({
+    url: '/quality/blacklist/exclude',
+    method: 'put',
+    data: {}
+  })
+}
