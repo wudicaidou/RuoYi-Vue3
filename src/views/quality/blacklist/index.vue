@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <el-form :model="queryParams" ref="queryRef" :inline="true" v-show="showSearch" label-width="68px">
+    <el-form :model="queryParams" ref="queryRef" :inline="true" v-show="showSearch" label-width="auto">
       <el-form-item label="交易中心" prop="platformId">
         <el-select v-model="queryParams.platformId" placeholder="请选择数据上传交易中心编码" clearable>
           <el-option
@@ -20,6 +20,14 @@
             :value="dict.value"
           />
         </el-select>
+      </el-form-item>
+      <el-form-item label="建设项目编号" prop="projectCode">
+        <el-input
+          v-model="queryParams.projectCode"
+          placeholder="请输入建设项目编号"
+          clearable
+          @keyup.enter="handleQuery"
+        />
       </el-form-item>
       <el-form-item label="项目编号" prop="tenderProjectCode">
         <el-input
@@ -117,6 +125,7 @@
           <dict-tag :options="biz_business_type" :value="scope.row.businessType"/>
         </template>
       </el-table-column>
+      <el-table-column label="建设项目编号" align="center" prop="projectCode" />
       <el-table-column label="项目编号" align="center" prop="tenderProjectCode" />
       <el-table-column label="标段编号" align="center" prop="sectionCode" :show-overflow-tooltip="true" />
       <el-table-column label="创建时间" align="center" prop="createTime" width="100">
@@ -152,7 +161,7 @@
 
     <!-- 添加或修改测试数据黑名单对话框 -->
     <el-dialog :title="title" v-model="open" width="500px" append-to-body>
-      <el-form ref="blacklistRef" :model="form" :rules="rules" label-width="80px">
+      <el-form ref="blacklistRef" :model="form" :rules="rules" label-width="auto">
         <el-form-item label="交易中心" prop="platformId">
           <el-select v-model="form.platformId" placeholder="请选择交易中心">
             <el-option
@@ -179,6 +188,9 @@
         <el-form-item label="catalog表名" prop="catalogTableName">
           <el-input v-model="form.catalogTableName" placeholder="请输入catalog表名" />
         </el-form-item>-->
+        <el-form-item label="建设项目编号" prop="projectCode">
+          <el-input v-model="form.projectCode" placeholder="请输入建设项目编号" />
+        </el-form-item>
         <el-form-item label="项目编号" prop="tenderProjectCode">
           <el-input v-model="form.tenderProjectCode" placeholder="请输入招标项目编号" />
         </el-form-item>
@@ -283,6 +295,7 @@ const data = reactive({
     businessName: null,
     ebidsunDataId: null,
     catalogTableName: null,
+    projectCode: null,
     tenderProjectCode: null,
     tenderProjectName: null,
     sectionCode: null,
@@ -291,12 +304,6 @@ const data = reactive({
     mask: null,
   },
   rules: {
-    tenderProjectCode: [
-      { required: true, message: "招标项目编号不能为空", trigger: "blur" }
-    ],
-    sectionCode: [
-      { required: true, message: "标段编号不能为空", trigger: "blur" }
-    ],
   }
 });
 
@@ -328,6 +335,7 @@ function reset() {
     businessName: null,
     ebidsunDataId: null,
     catalogTableName: null,
+    projectCode: null,
     tenderProjectCode: null,
     tenderProjectName: null,
     sectionCode: null,
@@ -401,9 +409,9 @@ function submitForm() {
 
 /** 删除按钮操作 */
 function handleDelete(row) {
-  const ids = row.id || ids.value;
-  proxy.$modal.confirm('是否确认删除测试数据黑名单编号为"' + ids + '"的数据项？').then(function() {
-    return delBlacklist(ids);
+  const _ids = row.id || ids.value;
+  proxy.$modal.confirm('是否确认删除？').then(function() {
+    return delBlacklist(_ids);
   }).then(() => {
     getList();
     proxy.$modal.msgSuccess("删除成功");
