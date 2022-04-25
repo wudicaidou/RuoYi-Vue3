@@ -42,3 +42,12 @@ export function delMessage(id) {
     method: 'delete'
   })
 }
+
+// 关闭公开信息完整性问题
+export function closeMessage(id) {
+  return request({
+    url: '/quality/message/as-close',
+    method: 'put',
+    data: { ids: id }
+  })
+}

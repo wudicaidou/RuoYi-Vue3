@@ -42,3 +42,12 @@ export function delProcess(id) {
     method: 'delete'
   })
 }
+
+// 关闭业务流程完整性问题
+export function closeProcess(id) {
+  return request({
+    url: '/quality/process/as-close',
+    method: 'put',
+    data: { ids: id }
+  })
+}

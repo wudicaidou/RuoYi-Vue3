@@ -1,8 +1,8 @@
 <template>
   <div class="app-container">
     <el-form :model="queryParams" ref="queryRef" :inline="true" v-show="showSearch" label-width="auto">
-      <el-form-item label="交易中心编码" prop="platformId">
-        <el-select v-model="queryParams.platformId" placeholder="请选择交易中心编码" clearable>
+      <el-form-item label="交易中心" prop="platformId">
+        <el-select v-model="queryParams.platformId" placeholder="请选择交易中心" clearable>
           <el-option
             v-for="dict in biz_platform_id"
             :key="dict.value"
@@ -29,14 +29,14 @@
           @keyup.enter="handleQuery"
         />
       </el-form-item>
-<!--      <el-form-item label="发布时间" prop="noticeTime">
+      <el-form-item label="发布时间" prop="noticeTime">
         <el-date-picker clearable
           v-model="queryParams.noticeTime"
           type="date"
           value-format="YYYY-MM-DD"
           placeholder="请选择发布时间">
         </el-date-picker>
-      </el-form-item>-->
+      </el-form-item>
       <el-form-item label="建设项目编码" prop="projectCode">
         <el-input
           v-model="queryParams.projectCode"
@@ -624,7 +624,7 @@ function submitForm() {
 /** 删除按钮操作 */
 function handleDelete(row) {
   const _ids = row.id || ids.value;
-  proxy.$modal.confirm('是否确认删除全面性问题关闭编号为"' + ids + '"的数据项？').then(function() {
+  proxy.$modal.confirm('是否确认删除全面性问题关闭编号为"' + _ids + '"的数据项？').then(function() {
     return delCompre(_ids);
   }).then(() => {
     getList();
@@ -647,7 +647,7 @@ function handleCloseProblem(row) {
 function handleExport() {
   proxy.download('quality/compre/export', {
     ...queryParams.value
-  }, `compre_${new Date().getTime()}.xlsx`)
+  }, `全面性问题_${new Date().getTime()}.xlsx`)
 }
 
 getList();

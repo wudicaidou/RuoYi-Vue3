@@ -1,8 +1,8 @@
 <template>
   <div class="app-container">
-    <el-form :model="queryParams" ref="queryRef" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label="交易中心编码" prop="platformId">
-        <el-select v-model="queryParams.platformId" placeholder="请选择交易中心编码" clearable>
+    <el-form :model="queryParams" ref="queryRef" :inline="true" v-show="showSearch" label-width="auto">
+      <el-form-item label="交易中心" prop="platformId">
+        <el-select v-model="queryParams.platformId" placeholder="请选择交易中心" clearable>
           <el-option
             v-for="dict in biz_platform_id"
             :key="dict.value"
@@ -10,22 +10,6 @@
             :value="dict.value"
           />
         </el-select>
-      </el-form-item>
-      <el-form-item label="交易中心名称" prop="platformName">
-        <el-input
-          v-model="queryParams.platformName"
-          placeholder="请输入交易中心名称"
-          clearable
-          @keyup.enter="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="业务交易中心编码" prop="platformCode">
-        <el-input
-          v-model="queryParams.platformCode"
-          placeholder="请输入业务交易中心编码"
-          clearable
-          @keyup.enter="handleQuery"
-        />
       </el-form-item>
       <el-form-item label="业务类型" prop="businessType">
         <el-select v-model="queryParams.businessType" placeholder="请选择业务类型" clearable>
@@ -36,14 +20,6 @@
             :value="dict.value"
           />
         </el-select>
-      </el-form-item>
-      <el-form-item label="业务类型" prop="businessName">
-        <el-input
-          v-model="queryParams.businessName"
-          placeholder="请输入业务类型"
-          clearable
-          @keyup.enter="handleQuery"
-        />
       </el-form-item>
       <el-form-item label="招标项目编码" prop="tenderProjectCode">
         <el-input
@@ -85,14 +61,14 @@
           @keyup.enter="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="项目进展" prop="finishTableEn">
+<!--      <el-form-item label="项目进展" prop="finishTableEn">
         <el-input
           v-model="queryParams.finishTableEn"
           placeholder="请输入项目进展"
           clearable
           @keyup.enter="handleQuery"
         />
-      </el-form-item>
+      </el-form-item>-->
       <el-form-item label="流程表名" prop="allTable">
         <el-input
           v-model="queryParams.allTable"
@@ -101,14 +77,14 @@
           @keyup.enter="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="流程表英文名" prop="allTableEn">
+<!--      <el-form-item label="流程表英文名" prop="allTableEn">
         <el-input
           v-model="queryParams.allTableEn"
           placeholder="请输入流程表英文名"
           clearable
           @keyup.enter="handleQuery"
         />
-      </el-form-item>
+      </el-form-item>-->
       <el-form-item label="是否应上链" prop="needFlag">
         <el-select v-model="queryParams.needFlag" placeholder="请选择是否应上链" clearable>
           <el-option
@@ -139,78 +115,14 @@
           />
         </el-select>
       </el-form-item>
-      <el-form-item label="日失效数据标识:1有效0失效" prop="dayState">
-        <el-select v-model="queryParams.dayState" placeholder="请选择日失效数据标识:1有效0失效" clearable>
-          <el-option
-            v-for="dict in biz_valid_flag"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
-        </el-select>
-      </el-form-item>
-      <el-form-item label="月失效数据标识:1有效0失效" prop="monthState">
-        <el-select v-model="queryParams.monthState" placeholder="请选择月失效数据标识:1有效0失效" clearable>
-          <el-option
-            v-for="dict in biz_valid_flag"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
-        </el-select>
-      </el-form-item>
-      <el-form-item label="年失效数据标识:1有效0失效" prop="yearState">
-        <el-select v-model="queryParams.yearState" placeholder="请选择年失效数据标识:1有效0失效" clearable>
-          <el-option
-            v-for="dict in biz_valid_flag"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
-        </el-select>
-      </el-form-item>
-      <el-form-item label="汇总失效数据标识:1有效0失效" prop="totalState">
-        <el-select v-model="queryParams.totalState" placeholder="请选择汇总失效数据标识:1有效0失效" clearable>
-          <el-option
-            v-for="dict in biz_valid_flag"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
-        </el-select>
-      </el-form-item>
-      <el-form-item label="成交/终止公告上链时间" prop="uploadTime">
+<!--      <el-form-item label="成交/终止公告上链时间" prop="uploadTime">
         <el-date-picker clearable
           v-model="queryParams.uploadTime"
           type="date"
           value-format="YYYY-MM-DD"
           placeholder="请选择成交/终止公告上链时间">
         </el-date-picker>
-      </el-form-item>
-      <el-form-item label="${comment}" prop="mask">
-        <el-input
-          v-model="queryParams.mask"
-          placeholder="请输入${comment}"
-          clearable
-          @keyup.enter="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="${comment}" prop="ctime">
-        <el-date-picker clearable
-          v-model="queryParams.ctime"
-          type="date"
-          value-format="YYYY-MM-DD"
-          placeholder="请选择${comment}">
-        </el-date-picker>
-      </el-form-item>
-      <el-form-item label="${comment}" prop="mtime">
-        <el-date-picker clearable
-          v-model="queryParams.mtime"
-          type="date"
-          value-format="YYYY-MM-DD"
-          placeholder="请选择${comment}">
-        </el-date-picker>
-      </el-form-item>
+      </el-form-item>-->
       <el-form-item>
         <el-button type="primary" icon="Search" @click="handleQuery">搜索</el-button>
         <el-button icon="Refresh" @click="resetQuery">重置</el-button>
@@ -256,34 +168,44 @@
           v-hasPermi="['quality:process:export']"
         >导出</el-button>
       </el-col>
+      <el-col :span="1.5">
+        <el-button
+            type="danger"
+            plain
+            icon="CircleCloseFilled"
+            :disabled="multiple"
+            @click="handleCloseProblem"
+            v-hasPermi="['quality:process:close']"
+        >关闭</el-button>
+      </el-col>
       <right-toolbar v-model:showSearch="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
 
     <el-table v-loading="loading" :data="processList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="主键" align="center" prop="id" />
-      <el-table-column label="交易中心编码" align="center" prop="platformId">
+<!--      <el-table-column label="主键" align="center" prop="id" />-->
+      <el-table-column label="交易中心" align="center" prop="platformId" width="200">
         <template #default="scope">
           <dict-tag :options="biz_platform_id" :value="scope.row.platformId"/>
         </template>
       </el-table-column>
-      <el-table-column label="交易中心名称" align="center" prop="platformName" />
-      <el-table-column label="业务交易中心编码" align="center" prop="platformCode" />
+<!--      <el-table-column label="交易中心名称" align="center" prop="platformName" />
+      <el-table-column label="业务交易中心编码" align="center" prop="platformCode" />-->
       <el-table-column label="业务类型" align="center" prop="businessType">
         <template #default="scope">
           <dict-tag :options="biz_business_type" :value="scope.row.businessType"/>
         </template>
       </el-table-column>
-      <el-table-column label="业务类型" align="center" prop="businessName" />
-      <el-table-column label="招标项目编码" align="center" prop="tenderProjectCode" />
-      <el-table-column label="招标项目名称" align="center" prop="tenderProjectName" />
-      <el-table-column label="标段编码" align="center" prop="sectionCode" />
-      <el-table-column label="标段名称" align="center" prop="sectionName" />
-      <el-table-column label="项目进展" align="center" prop="finishTable" />
-      <el-table-column label="项目进展" align="center" prop="finishTableEn" />
-      <el-table-column label="流程表名" align="center" prop="allTable" />
-      <el-table-column label="流程表英文名" align="center" prop="allTableEn" />
-      <el-table-column label="是否应上链" align="center" prop="needFlag">
+<!--      <el-table-column label="业务类型" align="center" prop="businessName" />-->
+      <el-table-column label="招标项目编码" align="center" prop="tenderProjectCode"  width="220"/>
+      <el-table-column label="招标项目名称" align="center" prop="tenderProjectName"  width="180" showTooltipWhenOverflow="true"/>
+      <el-table-column label="标段编码" align="center" prop="sectionCode"  width="280"/>
+      <el-table-column label="标段名称" align="center" prop="sectionName"  width="180" showTooltipWhenOverflow="true"/>
+      <el-table-column label="项目进展" align="center" prop="finishTable"  width="180"/>
+<!--      <el-table-column label="项目进展" align="center" prop="finishTableEn" />-->
+      <el-table-column label="流程表名" align="center" prop="allTable"  width="180"/>
+<!--      <el-table-column label="流程表英文名" align="center" prop="allTableEn" />-->
+      <el-table-column label="是否应上链" align="center" prop="needFlag" width="100">
         <template #default="scope">
           <dict-tag :options="biz_yes_no" :value="scope.row.needFlag"/>
         </template>
@@ -298,45 +220,13 @@
           <dict-tag :options="biz_check_result" :value="scope.row.repairFlag"/>
         </template>
       </el-table-column>
-      <el-table-column label="日失效数据标识:1有效0失效" align="center" prop="dayState">
-        <template #default="scope">
-          <dict-tag :options="biz_valid_flag" :value="scope.row.dayState"/>
-        </template>
-      </el-table-column>
-      <el-table-column label="月失效数据标识:1有效0失效" align="center" prop="monthState">
-        <template #default="scope">
-          <dict-tag :options="biz_valid_flag" :value="scope.row.monthState"/>
-        </template>
-      </el-table-column>
-      <el-table-column label="年失效数据标识:1有效0失效" align="center" prop="yearState">
-        <template #default="scope">
-          <dict-tag :options="biz_valid_flag" :value="scope.row.yearState"/>
-        </template>
-      </el-table-column>
-      <el-table-column label="汇总失效数据标识:1有效0失效" align="center" prop="totalState">
-        <template #default="scope">
-          <dict-tag :options="biz_valid_flag" :value="scope.row.totalState"/>
-        </template>
-      </el-table-column>
-      <el-table-column label="成交/终止公告块信息" align="center" prop="blockInfo" />
+<!--      <el-table-column label="成交/终止公告块信息" align="center" prop="blockInfo" />-->
       <el-table-column label="成交/终止公告上链时间" align="center" prop="uploadTime" width="180">
         <template #default="scope">
-          <span>{{ parseTime(scope.row.uploadTime, '{y}-{m}-{d}') }}</span>
+          <span>{{ parseTime(scope.row.uploadTime) }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="${comment}" align="center" prop="extention" />
-      <el-table-column label="${comment}" align="center" prop="mask" />
-      <el-table-column label="${comment}" align="center" prop="ctime" width="180">
-        <template #default="scope">
-          <span>{{ parseTime(scope.row.ctime, '{y}-{m}-{d}') }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="${comment}" align="center" prop="mtime" width="180">
-        <template #default="scope">
-          <span>{{ parseTime(scope.row.mtime, '{y}-{m}-{d}') }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
+      <el-table-column label="操作" align="center" class-name="small-padding fixed-width" width="180">
         <template #default="scope">
           <el-button
             type="text"
@@ -350,6 +240,12 @@
             @click="handleDelete(scope.row)"
             v-hasPermi="['quality:process:remove']"
           >删除</el-button>
+          <el-button
+              type="text"
+              icon="CircleCloseFilled"
+              @click="handleCloseProblem(scope.row)"
+              v-hasPermi="['quality:process:close']"
+          >关闭</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -533,7 +429,7 @@
 </template>
 
 <script setup name="Process">
-import { listProcess, getProcess, delProcess, addProcess, updateProcess } from "@/api/quality/process";
+import { listProcess, getProcess, delProcess, addProcess, updateProcess, closeProcess } from "@/api/quality/process";
 
 const { proxy } = getCurrentInstance();
 const { biz_check_result, biz_platform_id, biz_valid_flag, biz_business_type, biz_yes_no } = proxy.useDict('biz_check_result', 'biz_platform_id', 'biz_valid_flag', 'biz_business_type', 'biz_yes_no');
@@ -696,12 +592,23 @@ function submitForm() {
 
 /** 删除按钮操作 */
 function handleDelete(row) {
-  const ids = row.id || ids.value;
-  proxy.$modal.confirm('是否确认删除业务流程完整性问题修复编号为"' + ids + '"的数据项？').then(function() {
-    return delProcess(ids);
+  const _ids = row.id || ids.value;
+  proxy.$modal.confirm('是否确认删除业务流程完整性问题修复编号为"' + _ids + '"的数据项？').then(function() {
+    return delProcess(_ids);
   }).then(() => {
     getList();
     proxy.$modal.msgSuccess("删除成功");
+  }).catch(() => {});
+}
+
+/** 关闭按钮操作 */
+function handleCloseProblem(row) {
+  const _ids = row && row.id ? [row.id] : ids.value;
+  proxy.$modal.confirm('是否确认关闭当前业务流程完整性问题？').then(function() {
+    return closeProcess(_ids);
+  }).then(() => {
+    getList();
+    proxy.$modal.msgSuccess("关闭成功");
   }).catch(() => {});
 }
 
@@ -709,7 +616,7 @@ function handleDelete(row) {
 function handleExport() {
   proxy.download('quality/process/export', {
     ...queryParams.value
-  }, `process_${new Date().getTime()}.xlsx`)
+  }, `业务流程完整性问题_${new Date().getTime()}.xlsx`)
 }
 
 getList();
